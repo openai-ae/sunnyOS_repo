@@ -1,0 +1,17 @@
+# Maintainer:
+
+pkgname=yai
+pkgver=0.6.0
+pkgrel=1
+pkgdesc='Your AI powered terminal assistant.'
+url='https://github.com/arkanelinux/arkane-application-cleaner'
+arch=('x86_64')
+license=('BSD')
+source=("https://github.com/ekkinox/yai/releases/download/${pkgver}/yai_${pkgver}_linux_amd64.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+	cd $pkgdir
+	install -d usr/bin
+	install -m755 $srcdir/yai usr/bin/
+}
