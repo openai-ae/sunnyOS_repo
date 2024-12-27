@@ -1,0 +1,24 @@
+# Maintainer: 
+
+pkgname=gnome-shell-extension-advanced-tab-bar
+_pkgname=advanced-alttab-window-switcher
+pkgver=47
+pkgrel=2
+pkgdesc="A highly customizable replacement for Alt/Super+Tab window/app switchers"
+arch=('any')
+license=('GPL-2.0-or-later')
+depends=('gnome-shell')
+makedepends=('gettext' 'git' 'sassc' 'unzip')
+source=("git+https://github.com/G-dH/advanced-alttab-window-switcher#branch=main")
+sha256sums=('SKIP')
+
+package() {
+    cd $srcdir/$_pkgname
+    make zip
+    mkdir -p $srcdir/$_pkgname/zip
+    unzip -o advanced-alt-tab@G-dH.github.com.zip -d $srcdir/$_pkgname/zip
+
+    cd $pkgdir
+    install -d usr/share/gnome-shell/extensions/advanced-alt-tab@G-dH.github.com
+    mv $srcdir/$_pkgname/zip/* usr/share/gnome-shell/extensions/advanced-alt-tab@G-dH.github.com
+}
