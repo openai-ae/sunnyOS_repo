@@ -1,0 +1,16 @@
+pkgname=sunny-keyring
+pkgver=2024.12.28
+pkgrel=1
+pkgdesc='SunnyOS keyring'
+url='https://github.com/openai-ae'
+arch=('any')
+license=('GPL')
+install="${pkgname}.install"
+source=('')
+validpgpkeys=('')
+sha256sums=('')
+
+package() {
+	cd "${srcdir}"
+	make PREFIX=/usr DESTDIR=${pkgdir} install
+}
