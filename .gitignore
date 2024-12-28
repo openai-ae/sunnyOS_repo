@@ -1,9 +1,7 @@
 */pkg
 */src
-*/*.tar.zst
 */*.tar.gz
 */*.deb
-repo/
 application-cleaner/arkane-application-cleaner
 gnome-shell-extension-advanced-tab-bar/advanced-alttab-window-switcher
 gnome-shell-extension-dash-to-dock/dash-to-dock
