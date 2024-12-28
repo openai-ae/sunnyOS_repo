@@ -2,7 +2,7 @@
 
 pkgname=gnome-shell-extension-rounded-corners
 _uuid=Rounded_Corners@lennart-k
-pkgver=r34.571147a
+pkgver=r35.aac0701
 pkgrel=1
 pkgdesc="Adds rounded corners to every monitor in GNOME."
 arch=('any')
