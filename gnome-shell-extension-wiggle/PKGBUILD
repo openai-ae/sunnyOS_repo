@@ -11,6 +11,11 @@ makedepends=('gettext' 'git' 'sassc')
 source=("git+https://github.com/mechtifs/wiggle.git#branch=master")
 sha256sums=('SKIP')
 
+build() {
+    cd $srcdir/wiggle
+    glib-compile-schemas ./schemas/
+}
+
 package() {
     cd $pkgdir
     install -d usr/share/gnome-shell/extensions/wiggle@mechtifs
