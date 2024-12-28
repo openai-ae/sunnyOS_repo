@@ -1,0 +1,9 @@
+NAME="SunnyOS"
+PRETTY_NAME="SunnyOS"
+ID=sunny
+BUILD_ID=beta
+ANSI_COLOR="38;2;255;255;0"
+HOME_URL="https://github.com/openai-ae/SunnyOS"
+SUPPORT_URL="https://github.com/openai-ae/SunnyOS/issues"
+BUG_REPORT_URL="https://github.com/openai-ae/SunnyOS/issues"
+LOGO=sunnyos-logo
