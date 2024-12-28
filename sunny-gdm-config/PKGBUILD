@@ -1,0 +1,15 @@
+# Maintainer:
+
+pkgname=sunny-gdm-config
+pkgver=1
+pkgrel=1
+pkgdesc='SunnyOS GDM config.'
+arch=('any')
+license=('GPL-3.0-or-later')
+source=('01-sunny-logo' 'gdm-dconf-profile')
+sha256sums=('2098a7d00f092d2c3b40d0b6b6df46d17769e93fcfa74d8df4c3c57285bea2e2' 'd8164a25f885dbfbf107068a5b88e3dc4e0db60daccf377c0d753df370b8fbe7')
+
+package() {
+	install -Dm644 "$srcdir/01-sunny-logo" "$pkgdir/etc/dconf/db/gdm.d/01-sunny-logo"
+	install -Dm644 "$srcdir/gdm-dconf-profile" "$pkgdir/etc/dconf/profile/gdm"
+}
