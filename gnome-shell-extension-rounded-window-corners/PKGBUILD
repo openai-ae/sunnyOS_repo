@@ -1,6 +1,6 @@
 # Original Maintainer: GrzegorzKozub <grzegorz.kozub@gmail.com>
 
-pkgname=gnome-shell-extension-rounded-window-corners-reborn
+pkgname=gnome-shell-extension-rounded-window-corners
 pkgdesc='A GNOME Shell extension that adds rounded corners for all windows'
 url='https://github.com/flexagoon/rounded-window-corners'
 license=('GPL-3.0-or-later')
