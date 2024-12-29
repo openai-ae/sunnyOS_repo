@@ -4,13 +4,14 @@ pkgname=feather-branding
 pkgver=1
 pkgrel=1
 pkgdesc='SunnyOS branding for Feather Edition.'
+install="os-release.feather.install"
 arch=('any')
 license=('GPL-3.0-or-later')
 source=('os-release' 'sunnyos-logo-feather.png' 'sunnyos-logo-feather-text.png')
 sha256sums=('e811536e4f3cb5aa3f4626c86f56d99ef9651229454a70fba556dc1446d2e6fd' '4157433a7b032828f992bd33353bd4fd1c961b4a9608394e32a5b6bd7cfd676d' 'd45e8216d13a0bae75fba8855dbca5e914ccc12fc090783d586f9bc4aff6d9d7')
 
 package() {
-	install -Dm644 "$srcdir/os-release" "$pkgdir/usr/lib/os-release"
+	install -Dm644 "$srcdir/os-release" "$pkgdir/usr/lib/os-release.feather"
 	install -Dm644 "$srcdir/sunnyos-logo-feather.png" "$pkgdir/usr/share/icons/sunnyos-logo-feather.png"
 	install -Dm644 "$srcdir/sunnyos-logo-feather-text.png" "$pkgdir/usr/share/pixmaps/sunnyos-logo-feather-text.png"
 }

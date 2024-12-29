@@ -1,0 +1,3 @@
+post_install() {
+	ln -sf /usr/lib/os-release.feather /etc/os-release
+}
