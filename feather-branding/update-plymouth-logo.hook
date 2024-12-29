@@ -1,0 +1,10 @@
+[Trigger]
+Type = Path
+Operation = Install
+Operation = Upgrade
+Target = usr/share/plymouth/themes/spinner/watermark.png
+
+[Action]
+Description = Running update logo in plymouth...
+When = PostTransaction
+Exec = /usr/bin/mv -f /usr/share/pixmaps/sunnyos-logo-feather-full.png /usr/share/plymouth/themes/spinner/watermark.png

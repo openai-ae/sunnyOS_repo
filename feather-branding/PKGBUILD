@@ -4,14 +4,15 @@ pkgname=feather-branding
 pkgver=1
 pkgrel=1
 pkgdesc='SunnyOS branding for Feather Edition.'
-install="os-release.feather.install"
+install="feather-branding.install"
 arch=('any')
 license=('GPL-3.0-or-later')
-source=('os-release' 'sunnyos-logo-feather.png' 'sunnyos-logo-feather-text.png')
-sha256sums=('e811536e4f3cb5aa3f4626c86f56d99ef9651229454a70fba556dc1446d2e6fd' '4157433a7b032828f992bd33353bd4fd1c961b4a9608394e32a5b6bd7cfd676d' 'd45e8216d13a0bae75fba8855dbca5e914ccc12fc090783d586f9bc4aff6d9d7')
+source=('os-release' 'sunnyos-logo-feather.png' 'sunnyos-logo-feather-full.png' 'update-plymouth-logo.hook')
+sha256sums=('e811536e4f3cb5aa3f4626c86f56d99ef9651229454a70fba556dc1446d2e6fd' '4157433a7b032828f992bd33353bd4fd1c961b4a9608394e32a5b6bd7cfd676d' 'a48fa1c5b6c4b90fd101211ed6e496a13333c2286785474f3a057c301280436e' '89750182340a7c347b986b4ba127b8be4ade2e122c56e3f74fd9c8a6fc888f32')
 
 package() {
 	install -Dm644 "$srcdir/os-release" "$pkgdir/usr/lib/os-release.feather"
 	install -Dm644 "$srcdir/sunnyos-logo-feather.png" "$pkgdir/usr/share/icons/sunnyos-logo-feather.png"
-	install -Dm644 "$srcdir/sunnyos-logo-feather-text.png" "$pkgdir/usr/share/pixmaps/sunnyos-logo-feather-text.png"
+	install -Dm644 "$srcdir/sunnyos-logo-feather-full.png" "$pkgdir/usr/share/pixmaps/sunnyos-logo-feather-full.png"
+	install -Dm644 "$srcdir/update-plymouth-logo.hook" "$pkgdir/usr/share/libalpm/hooks/update-plymouth-logo.hook"
 }
