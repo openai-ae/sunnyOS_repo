@@ -1,0 +1,15 @@
+# Maintainer:
+
+pkgname=feather-gdm-config
+pkgver=1
+pkgrel=1
+pkgdesc='SunnyOS Feather Edition GDM config.'
+arch=('any')
+license=('GPL-3.0-or-later')
+source=('01-sunny-logo' 'gdm-dconf-profile')
+sha256sums=('03efe19a68918016ff39af6f99044fb452fe6ea63273e5b7208d5b0961fd39ab' 'd8164a25f885dbfbf107068a5b88e3dc4e0db60daccf377c0d753df370b8fbe7')
+
+package() {
+	install -Dm644 "$srcdir/01-sunny-logo" "$pkgdir/etc/dconf/db/gdm.d/01-sunny-logo"
+	install -Dm644 "$srcdir/gdm-dconf-profile" "$pkgdir/etc/dconf/profile/gdm"
+}
