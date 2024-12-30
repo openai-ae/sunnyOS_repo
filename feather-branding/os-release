@@ -1,5 +1,5 @@
 NAME="SunnyOS"
-PRETTY_NAME="SunnyOS Feather"
+PRETTY_NAME="SunnyOS Feather Edition"
 ID=sunny
 BUILD_ID=beta
 ANSI_COLOR="38;2;255;255;0"
