@@ -1,0 +1,16 @@
+# Maintainer:
+
+pkgname=feather-gnome-config
+pkgver=1
+pkgrel=1
+pkgdesc='SunnyOS Feather Edition GNOME config.'
+arch=('any')
+license=('GPL-3.0-or-later')
+source=('zz_feather.org.gnome.login-screen.gschema.override' '99_feather-gnome.gschema.override')
+depends=('gnome-shell')
+sha256sums=('011d07a367826dfd796a9c1df4634ec52a3f087071dc68022e92bd1d249228e8' '32a68eef9b5ccc696313cd1719db99c18c2a3f2d36976cf6f5581a92d593d448')
+
+package() {
+		install -Dm755 "${srcdir}/99_feather-gnome.gschema.override" "${pkgdir}/usr/share/glib-2.0/schemas/99_feather-gnome.gschema.override"
+		install -Dm755 "${srcdir}/zz_feather.org.gnome.login-screen.gschema.override" "${pkgdir}/usr/share/glib-2.0/schemas/zz_feather.org.gnome.login-screen.gschema.override"
+}
