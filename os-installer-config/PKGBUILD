@@ -1,0 +1,15 @@
+pkgname=os-installer-config
+pkgver='v1.7.alpha'
+pkgrel=1
+pkgdesc='SunnyOS configuration files for the os-installer'
+url='https://github.com/arkanelinux/pkgbuild/tree/main/os-installer-config'
+arch=('x86_64')
+license=('BSD')
+source=('os-installer-config.tar.xz')
+sha256sums=('SKIP')
+
+package() {
+	install -d $pkgdir/etc/os-installer
+	cp -r $srcdir/* $pkgdir/etc/os-installer
+    rm $pkgdir/etc/os-installer/os-installer-config.tar.xz
+}
