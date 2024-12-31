@@ -1,0 +1,15 @@
+# Maintainer:
+
+pkgname=sunny-calamares-config
+pkgver=1
+pkgrel=1
+pkgdesc='SunnyOS Calamares config.'
+arch=('any')
+license=('GPL-3.0-or-later')
+source=(git+https://github.com/openai-ae/sunnyos-calamares-config.git)
+sha256sums=('SKIP')
+
+package() {
+	install -d "$pkgdir/etc"
+	cp -r "$srcdir/sunnyos-calamares-config/etc/calamares" "$pkgdir/etc/calamares"
+}
