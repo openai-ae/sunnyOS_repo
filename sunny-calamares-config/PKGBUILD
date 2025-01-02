@@ -2,7 +2,7 @@
 
 pkgname=sunny-calamares-config
 pkgver=1
-pkgrel=1
+pkgrel=2
 pkgdesc='SunnyOS Calamares config.'
 arch=('any')
 license=('GPL-3.0-or-later')
