@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=SunnyOS Grunty
+GenericName=Grunty Loves Sun
+Keywords=sunnyos;sunny;sun;grunty;ai;loves;
+TryExec=exec_gls
+Exec=/usr/bin/exec_gls 
+Comment=SunnyOS Grunty --- Grunty Loves Sun
+Icon=sunnygrunty
+Terminal=false
+StartupNotify=true
+Categories=Qt;System;Accessories;Programming;
+X-AppStream-Ignore=true

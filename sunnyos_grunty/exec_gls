@@ -1,0 +1,2 @@
+echo Executing Grunty Loves Sun
+python3 /usr/bin/gls/run.py

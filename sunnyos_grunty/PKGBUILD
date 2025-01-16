@@ -1,0 +1,40 @@
+# Maintainer: Parsa Aslani <parsaaslani.67@gmail.com>
+
+pkgname=sunnyos_grunty
+pkgver=1.0
+pkgrel=1
+pkgdesc='SunnyOS AI Agent, Grunty is Ready to help you doing your tasks.'
+arch=('any')
+license=('BSD')
+source=(
+    "grunty.desktop"
+    "exec_gls"
+    "run.py"
+    "requirements.txt"
+    "set_api"
+    "setapi.py"
+    "__init__.py"
+    "anthropic.py"
+    "computer.py"
+    "main.py"
+    "report.py"
+    "store.py"
+    "window.py"
+)
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+
+package() {
+    python3 -m pip install -r "$srcdir/requirements.txt" --break-system-packages
+    install -Dm755 "$srcdir/exec_gls" "$pkgdir/usr/bin/exec_gls"
+    install -Dm755 "$srcdir/run.py" "$pkgdir/usr/bin/gls/run.py"
+    install -Dm755 "$srcdir/set_api" "$pkgdir/usr/bin/set_api"
+    install -Dm644 "$srcdir/setapi.py" "$pkgdir/usr/bin/gls/tools/setapi.py"
+    install -Dm644 "$srcdir/__init__.py" "$pkgdir/usr/bin/gls/src/__init__.py"
+    install -Dm644 "$srcdir/anthropic.py" "$pkgdir/usr/bin/gls/src/anthropic.py"
+    install -Dm644 "$srcdir/computer.py" "$pkgdir/usr/bin/gls/src/computer.py"
+    install -Dm644 "$srcdir/main.py" "$pkgdir/usr/bin/gls/src/main.py"
+    install -Dm644 "$srcdir/report.py" "$pkgdir/usr/bin/gls/src/report.py"
+    install -Dm644 "$srcdir/store.py" "$pkgdir/usr/bin/gls/src/store.py"
+    install -Dm644 "$srcdir/window.py" "$pkgdir/usr/bin/gls/src/window.py"
+    install -Dm644 "$srcdir/grunty.desktop" "$pkgdir/usr/share/applications/grunty.desktop"
+}
