@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=0.0.14
+Name=SunnyOS SuperAGI
+GenericName=Grunty Loves Sun
+Keywords=sunnyos;sunny;sun;super;ai;agi;
+TryExec=run_sagi
+Exec=/usr/bin/run_sagi
+Comment=SunnyOS SuperAGI
+icon=sunnysagi
+Terminal=false
+StartupNotify=true
+Categories=Qt;System;Accessories;Programming;
+X-AppStream-Ignore=true

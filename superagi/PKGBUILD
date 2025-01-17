@@ -1,0 +1,16 @@
+pkgname=superagi
+pkgver=0.0.14
+pkgrel=0014
+pkgdesc='SunnyOS SuperAGI'
+arch=($CARCH)
+license=('MIT')
+depends=('uvicorn' 'unzip' 'zip')
+install="superagi.install"
+source=("superagi.desktop" "superagi.install" "run_sagi")
+sha256sums=('SKIP' 'SKIP' 'SKIP')
+
+package() {
+	install -Dm644 "${srcdir}/superagi.desktop" "$pkgdir/etc/xdg/autostart/superagi.desktop"
+	install -Dm644 "${srcdir}/superagi.desktop" "$pkgdir/usr/share/applications/superagi.desktop"
+	install -Dm644 "${srcdir}/run_sagi" "$pkgdir/usr/bin/run_sagi"
+}
