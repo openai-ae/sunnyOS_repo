@@ -1,0 +1,14 @@
+pkgname=anytype
+pkgver=0.44.7
+pkgrel=0447
+pkgdesc='SunnyOS AnyType'
+arch=($CARCH)
+license=('MIT')
+depends=('uvicorn' 'tar')
+install="anytype.install"
+source=("anytype.desktop" "anytype.install")
+sha256sums=('SKIP' 'SKIP')
+
+package() {
+	install -Dm644 "${srcdir}/anytype.desktop" "$pkgdir/usr/share/applications/anytype.desktop"
+}

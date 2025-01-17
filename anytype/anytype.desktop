@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=0.44.7
+Name=SunnyOS AnyType
+GenericName=AnyType likes Any Type
+Keywords=sunnyos;sunny;sun;any;type;anytype;
+TryExec=anytype
+Exec=/opt/anytype/anytype
+Comment=SunnyOS AnyType
+icon=sunnyanytype
+Terminal=false
+StartupNotify=true
+Categories=Qt;System;Accessories;Programming;
+X-AppStream-Ignore=true
