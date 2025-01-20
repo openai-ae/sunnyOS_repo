@@ -12,3 +12,10 @@ gnome-shell-extension-useless-gaps/gnome-shell-extension-useless-gaps
 gnome-shell-extension-wiggle/wiggle
 lsb-release/lsb-samples
 sunny-calamares-config/sunnyos-calamares-config
+sunny-keyring/sunny-keyring
+sunnyos_grunty/sunnyos_grunty
+python-tokenizers/cargo-home
+python-tokenizers/*.txt
+python-tokenizers/*.json
+os-installer-config/os-installer-config
+.packages

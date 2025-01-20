@@ -10,5 +10,7 @@ source=('git+https://github.com/openai-ae/sunny-keyring.git')
 sha256sums=('SKIP')
 
 package() {
-	cd "${srcdir}"
+	install -Dm664 "$srcdir/$pkgname/sunny.gpg" "$pkgdir/usr/share/pacman/keyrings/sunny.gpg"
+	install -Dm664 "$srcdir/$pkgname/sunny-trusted" "$pkgdir/usr/share/pacman/keyrings/sunny-trusted"
+	install -Dm664 "$srcdir/$pkgname/sunny-revoked" "$pkgdir/usr/share/pacman/keyrings/sunny-revoked"
 }
