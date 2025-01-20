@@ -1,14 +1,17 @@
 pkgname=anytype
 pkgver=0.44.7
-pkgrel=0447
+pkgrel=1
 pkgdesc='SunnyOS AnyType'
 arch=($CARCH)
 license=('MIT')
-depends=('uvicorn' 'tar')
-install="anytype.install"
-source=("anytype.desktop" "anytype.install")
+depends=('uvicorn' 'tar' 'nss' 'gtk3' 'alsa-lib')
+source=("anytype.desktop" "https://github.com/anyproto/anytype-ts/releases/download/v0.44.7-alpha/anytype-0.44.7-alpha.tar.gz")
 sha256sums=('SKIP' 'SKIP')
 
 package() {
-	install -Dm644 "${srcdir}/anytype.desktop" "$pkgdir/usr/share/applications/anytype.desktop"
+	install -d "${pkgdir}/usr/share/anytype"
+	install -d "${pkgdir}/usr/bin"
+	cp -r $srcdir/anytype-0.44.7-alpha/* "${pkgdir}/usr/share/anytype"
+	ln -s "/usr/share/anytype/anytype" "$pkgdir/usr/bin/anytype"
+	install -Dm644 "$srcdir/anytype.desktop" "$pkgdir/usr/share/applications/anytype.desktop"
 }
