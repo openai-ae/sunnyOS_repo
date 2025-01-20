@@ -1,16 +1,19 @@
 import anthropic
 from anthropic.types.beta import BetaMessage, BetaTextBlock, BetaToolUseBlock
 import os
-from dotenv import load_dotenv
 import logging
-from src.report import report_error
+from src.report import setup_api
+from pathlib import Path
 
 class AnthropicClient:
     def __init__(self):
-        load_dotenv()  # Load environment variables from .env file
-        self.api_key = os.getenv("ANTHROPIC_API_KEY")
-        if not self.api_key:
-            report_error("ANTHROPIC_API_KEY not found in environment variables\nSet your ANTHROPIC API Key with 'set_api' later.")
+        api = Path.home() / ".grunty" / ".api"
+        try:     
+            with open(api, "r") as api:
+                self.api_key = api.read()
+                api.close()
+        except:
+            setup_api()
             exit(1)
         try:
             self.client = anthropic.Anthropic(api_key=self.api_key)
