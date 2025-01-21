@@ -1,11 +1,11 @@
 # PKGBUILD made by: Dennis ten Hoove <contact@arkanelinux.org>
 
 pkgname=os-installer
-pkgver=0.4.4 # last tag +0.0.1
+pkgver=0.4.3
 pkgrel=4
 pkgdesc='Operating system installer by the GNOME project'
 url='https://gitlab.gnome.org/p3732/os-installer'
-source=("git+https://gitlab.gnome.org/p3732/$pkgname.git") # main branch
+source=("git+https://gitlab.gnome.org/p3732/$pkgname.git#tag=$pkgver")
 sha256sums=('SKIP')
 arch=('x86_64')
 license=('GPL3')
