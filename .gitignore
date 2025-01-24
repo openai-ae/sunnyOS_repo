@@ -19,3 +19,4 @@ python-tokenizers/*.txt
 python-tokenizers/*.json
 os-installer-config/os-installer-config
 .packages
+kwin-effect-rounded-corners/kde-rounded-corners
