@@ -5,12 +5,17 @@ pkgver=0.4.3
 pkgrel=4
 pkgdesc='Operating system installer by the GNOME project'
 url='https://gitlab.gnome.org/p3732/os-installer'
-source=("git+https://gitlab.gnome.org/p3732/$pkgname.git#tag=$pkgver")
-sha256sums=('SKIP')
+source=("git+https://gitlab.gnome.org/p3732/$pkgname.git#tag=$pkgver" "fix_icon_in_kde.patch")
+sha256sums=('SKIP' 'aa1d4e05479a243543c69ac1e95f892227bfab89448b6110d1885ab0c2726cd5')
 arch=('x86_64')
 license=('GPL3')
 makedepends=('meson' 'appstream-glib' 'blueprint-compiler')
 depends=('gnome-desktop-4' 'gtk4' 'libadwaita' 'libgweather-4' 'python-yaml' 'udisks2' 'vte4' 'python-gobject')
+
+prepare () {
+	cd $srcdir/$pkgname
+	patch -p1 < $srcdir/fix_icon_in_kde.patch
+}
 
 build () {
 	cd $srcdir/$pkgname
