@@ -6,14 +6,16 @@ pkgrel=1
 pkgdesc='SunnyOS Feather Edition KDE Plasma config.'
 arch=('any')
 license=('GPL-3.0-or-later')
-source=('kwinrc' 'kdeglobals' 'theme.conf')
+source=('kwinrc' 'kdeglobals' 'theme.conf' 'breezerc')
 depends=('kwin' 'plasma-desktop')
-sha256sums=('515e02a4d42078ad4c710214197ea2282c65d930c7c11bc0706d08b70151096c'
+sha256sums=('0f5135caa5c06bf28a0244e3c0aa8f25a387b43cd9b073de5ed79816a1e981ee'
 			'381f2134e16290275e6ed6722884fa6040bd9542ae6643043677ed8ba1ff9b48'
-			'0279facbfd7a3f2a41dda87e5876cb53c0b422092bcc37c910e8b76dc895cee2')
+			'0279facbfd7a3f2a41dda87e5876cb53c0b422092bcc37c910e8b76dc895cee2'
+			'9d0c06c48bcb063f30fcfa08f7cfefce81a6babe86a17389915fbb1ebb538a57')
 
 package() {
-		install -Dm755 "${srcdir}/kwinrc" "${pkgdir}/etc/xdg/kwinrc"
+		install -Dm755 "${srcdir}/kwinrc"     "${pkgdir}/etc/xdg/kwinrc"
 		install -Dm755 "${srcdir}/kdeglobals" "${pkgdir}/etc/xdg/kdeglobals"
 		install -Dm755 "${srcdir}/theme.conf" "${pkgdir}/etc/sddm.conf.d/theme.conf"
+		install -Dm755 "${srcdir}/breezerc"   "${pkgdir}/etc/xdg/breezerc"
 }

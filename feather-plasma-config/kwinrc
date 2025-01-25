@@ -1,8 +1,10 @@
 [Round-Corners]
-ActiveOutlinePalette=1
+ActiveOutlineAlpha=255
+ActiveOutlinePalette=2
 ActiveOutlineUseCustom=false
 ActiveOutlineUsePalette=true
-InactiveOutlinePalette=1
+InactiveOutlineAlpha=255
+InactiveOutlinePalette=2
 InactiveOutlineUseCustom=false
 InactiveOutlineUsePalette=true
 InactiveSecondOutlineThickness=0
