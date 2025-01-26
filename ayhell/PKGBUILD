@@ -1,0 +1,14 @@
+# Maintainer:
+
+pkgname=ayhell
+pkgver=2.0.0
+pkgrel=1
+pkgdesc='A very good AUR helper written entirely in bash that just works.'
+url='https://t.me/LinuxL4nd/6'
+arch=('any')
+source=('ayhell')
+sha256sums=('cedaff33d91ac691546ecdf650ff91aa49364bf45dcbcd5a45cbab63a493ef10')
+
+package() {
+	install -Dm755 "$srcdir/ayhell" "$pkgdir/usr/bin/ayhell"
+}

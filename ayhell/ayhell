@@ -1,0 +1,224 @@
+#!/bin/bash
+
+# Ayhell 2.0 stable, you have the permission to use this code freely, however you like.
+# Made by Floppa3959
+# Changelog: Added ability to install multiple packages at a time, added -si and --skip-integrity for skiping integrity checks, a ton of massive improvements.
+# The massive update
+
+# Check if ayhell is running on archlinux by checking the existence of pacman
+if [ ! -f "/usr/bin/pacman" ]; then
+    echo "This system is not running archlinux."
+    exit 1
+fi
+
+# running as root thingy
+if [ "$(whoami)" = "root" ]; then
+    echo "Can't run ayhell as root."
+    exit 1
+fi
+
+# Delete useless annoying file
+if [[ -f "$HOME/.ayhell" ]]; then
+    rm -f "$HOME/.ayhell"
+fi
+
+# install git if it isnt already installed
+if [ ! -f "/usr/bin/git" ]; then
+    echo "git doesn't exist, attempting to install..."
+    if [ ! -f "/usr/bin/sudo" ]; then
+        su -c "pacman -S --needed git || { echo \"Failed to install git, Exiting.\"; exit 1; }"
+    else
+        sudo pacman -S --needed git || { echo "Failed to install git, Exiting."; exit 1; }
+    fi
+fi
+
+# make a directory for downloading from the AUR if it doesnt exist
+mkdir -p "$HOME/.ayhell"
+
+# Argument thingy
+if [ "$1" = "" ]; then
+    echo "Usage: $0 --help"
+    exit 0
+elif [[ "$1" = "-h" || "$1" = "--help" ]]; then
+    echo "-h or --help for this output"
+    echo "-v or --version for version"
+    echo "-s or --search to search somethng in the AUR"
+    echo "-u or --update:"
+    echo "ayhell -u or ayhell --update only updates databases but if: ayhell -u packagename or ayhell --update packagename it will install package after updating databases."
+    echo "-ua or --update-all:"
+    echo "ayhell -ua or ayhell --update-all only updates databases and packages but if: ayhell -ua packagename or ayhell --update-all packagename it will install package after updating databases and packages."
+    echo "Run ayhell and it will ask you what package to install."
+    echo "Or you can also: 'ayhell [package name(s)]'"
+    echo "If you include -si or --skip-integrity before package name(s) makepkg will skip integrity checks."
+    exit 0
+elif [[ "$1" = "--version" || "$1" = "-v" ]]; then
+    echo "Ayhell 2.0 stable"
+    echo "Get the latest version from:"
+    echo "Telegram: t.me/LinuxL4nd/6"
+    exit 0
+elif [[ "$1" = "-s" || "$1" = "--search" ]]; then
+    ping -c 1 8.8.8.8 > /dev/null 2>&1
+    if [ ! $? -eq 0 ]; then
+        echo "No internet connection."
+        exit 1
+    fi
+    if [ ! -f "/usr/bin/jq" ]; then
+        echo "Jq is required to search but not installed, attempting to install..."
+        if [ ! -f "/usr/bin/sudo" ]; then
+            su -c "pacman -S jq || { echo \"Failed to install jq, Exiting.\"; exit 1; }"
+        else
+            sudo pacman -S jq || { echo Failed to install jq, Exiting.; exit 1; }
+        fi
+    fi
+    if [ "$2" = "" ]; then
+        echo "Usage of search: $0 --search <search term>"
+        exit 0
+    fi
+    shift
+    echo "Looking for \"$@\" in the AUR..."
+    st=$(echo "$@" | sed 's/ /+/g')
+    rsr=$(curl -s "https://aur.archlinux.org/rpc/?v=5&type=search&arg=$st")
+    if [ -t 1 ]; then
+        fsr=$(echo "$rsr" | jq -r '.results[] | "\u001b[36m\(.Name):\u001b[0m\n\u001b[37m\(.Description)\u001b[0m\n"')
+        tut="\e[34mUse $0 <package_name> to install\e[0m"
+    else
+        fsr=$(echo "$rsr" | jq -r '.results[] | "\(.Name):\n\(.Description)\n"')
+        tut="Use $0 <package_name> to install your desired package."
+    fi
+    echo
+    if [ "$fsr" = "" ]; then
+        echo "Nothing found"
+    else
+        echo -e "$fsr" | sed 's/\"//g'
+        echo ""
+        echo -e "$tut"
+    fi
+    exit 0
+elif [[ "$1" = "-u" || "$1" = "--update" ]]; then
+    if [ "$2" = "" ]; then
+        if [ -f "/usr/bin/sudo" ]; then
+            if ! sudo pacman -Sy; then
+                echo "Failed to run pacman -Sy"
+                exit 1
+            fi
+            exit 0
+        else
+            if ! su -c "pacman -Sy"; then
+                echo "Failed to run pacman -Sy"
+                exit 1
+            fi
+            exit 0
+        fi
+    elif [ ! "$2" = "" ]; then
+        shift
+        ayhell=$@
+        if [ -f "/usr/bin/sudo" ]; then
+            if ! sudo pacman -Sy; then
+                echo "Failed to run pacman -Sy"
+                exit 1
+            fi
+        else
+            if ! su -c "pacman -Sy"; then
+                echo "Failed to run pacman -Sy"
+                exit 1
+            fi
+        fi
+    fi
+elif [[ "$1" = "-ua" || "$1" = "--update-all" ]]; then
+    if [ "$2" = "" ]; then
+        if [ -f "/usr/bin/sudo" ]; then
+            if ! sudo pacman -Syu; then
+                echo "Failed to run pacman -Syu"
+                exit 1
+            fi
+            exit 0
+        else
+            if ! su -c "pacman -Syu"; then
+                echo "Failed to run pacman -Syu"
+                exit 1
+            fi
+            exit 0
+        fi
+    elif [ ! "$2" = "" ]; then
+        shift
+        ayhell=$@
+        if [ -f "/usr/bin/sudo" ]; then
+            if ! sudo pacman -Syu; then
+                echo "Failed to run pacman -Syu"
+                exit 1
+            fi
+        else
+            if ! su -c "pacman -Syu"; then
+                echo "Failed to run pacman -Syu"
+                exit 1
+            fi
+        fi
+    fi
+else
+    if [[ "$1" = "-si" || "$1" = "--skip-integrity" ]]; then
+        shift
+        si=--skipinteg
+    fi
+    ayhell=$@
+fi
+
+# Check internet connection
+ping -c 1 8.8.8.8 > /dev/null 2>&1
+if [ ! $? -eq 0 ]; then
+    echo "No internet connection."
+    exit 1
+fi
+
+# Cheking if package(s) exist
+ayhell=($(echo "$ayhell" | sed 's/[^a-zA-Z0-9_-]/ /g'))  # Convert to a space-separated array
+notfound=()
+check() {
+    local package=$1
+    local response
+    response=$(curl -s "https://aur.archlinux.org/rpc/?v=5&type=info&arg=$package")
+    if ! echo "$response" | grep -q '"resultcount":1'; then
+        notfound+=("$package")  # Add to notfound array if package is missing
+    fi
+}
+for package in "${ayhell[@]}"; do
+    check "$package"
+done
+if [[ ${#notfound[@]} -gt 0 ]]; then
+    pac=$(echo "${notfound[*]}" | sed 's/ /, /g')
+    echo "Packages $pac not found."
+    exit 1
+fi
+
+# Clone repository for each package
+for ayhell in "$@"; do
+    if [[ -f "$HOME/.ayhell/$ayhell" || -d "$HOME/.ayhell/$ayhell" ]]; then
+        rm -rf "$HOME/.ayhell/$ayhell"
+    fi
+    echo -n "Downloading sources for $ayhell... "
+    cd $HOME/.ayhell || exit
+    if ! git clone "https://aur.archlinux.org/$ayhell.git" > /dev/null 2>&1; then
+        echo "Failed!"
+        rm -rf "$HOME/.ayhell/*"
+        exit 1
+    else
+        echo "Done"
+    fi
+done
+
+# Build and install each package
+for ayhell in "$@"; do
+    echo "Building and installing $ayhell..."
+    cd "$HOME/.ayhell/$ayhell"
+    if ! makepkg -si $si; then
+        echo "Fatal: Failed to build and install $ayhell"
+        rm -rf "$HOME/.ayhell/*"
+        exit 1
+    else
+        echo "$ayhell successfully installed."
+    fi
+done
+
+# clean up
+rm -rf "$HOME/.ayhell/*"
+
+exit 0
