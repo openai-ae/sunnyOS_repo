@@ -7,12 +7,18 @@ pkgdesc='SunnyOS branding for Feather Edition.'
 install="feather-branding.install"
 arch=('any')
 license=('GPL-3.0-or-later')
-source=('os-release' 'sunnyos-logo-feather.png' 'sunnyos-logo-feather-full.png' 'update-plymouth-logo.hook')
-sha256sums=('e070954f3aa9056e35908bd565a9cf1af228394fa1af309e6fed342a06e18648' '4157433a7b032828f992bd33353bd4fd1c961b4a9608394e32a5b6bd7cfd676d' '733a5be79bdba60e894ff37e327b9d1780559d60ecd4a13b70e2d311f42c22ae' '89750182340a7c347b986b4ba127b8be4ade2e122c56e3f74fd9c8a6fc888f32')
+source=('os-release' 'sunnyos-logo-feather.png' 'sunnyos-logo-feather-full.png' 'update-plymouth-logo.hook' 'zshrc')
+sha256sums=('e070954f3aa9056e35908bd565a9cf1af228394fa1af309e6fed342a06e18648'
+	    '4157433a7b032828f992bd33353bd4fd1c961b4a9608394e32a5b6bd7cfd676d'
+	    '733a5be79bdba60e894ff37e327b9d1780559d60ecd4a13b70e2d311f42c22ae'
+	    '89750182340a7c347b986b4ba127b8be4ade2e122c56e3f74fd9c8a6fc888f32'
+	    '68e70ad22862367c5c91df412f1f92fbad1245b32dce409a5a2c36efda7146b0')
 
 package() {
 	install -Dm644 "$srcdir/os-release" "$pkgdir/usr/lib/os-release.feather"
 	install -Dm644 "$srcdir/sunnyos-logo-feather.png" "$pkgdir/usr/share/icons/sunnyos-logo-feather.png"
 	install -Dm644 "$srcdir/sunnyos-logo-feather-full.png" "$pkgdir/usr/share/pixmaps/sunnyos-logo-feather-full.png"
 	install -Dm644 "$srcdir/update-plymouth-logo.hook" "$pkgdir/usr/share/libalpm/hooks/update-plymouth-logo.hook"
+	install -Dm644 "$srcdir/sunnyos-logo-feather-full.png" "$pkgdir/usr/share/pixmaps/archlinux-logo.png"
+	install -Dm755 "$srcdir/zshrc" "$pkgdir/etc/skel/.zshrc"
 }

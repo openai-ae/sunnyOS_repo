@@ -1,0 +1,24 @@
+autoload -Uz compinit && compinit
+
+# Prompt style, when the hostname is set to toolbox it will load a custom promp style,
+# this is useful to quickly visually identify containerized shell instances
+if [[ ! $HOSTNAME == 'toolbox' ]]; then
+	PS1='%(?..[%F{136}%?%f] )%n%f@%F{136}%m%f %1~ %#> '
+        eval "$(starship init zsh)"
+else
+	PS1='⬢ %(?..[%F{136}%?%f] )%n%f@%F{35}%m%f %1~ %#> '
+fi
+
+# Zsh history location and settings
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Show selection on tab completion
+zstyle ':completion:*' menu select
+
+# Custom chars which define beginning or end of words
+WORDCHARS=${WORDCHARS/\/}
+
+# Use colors for ls
+alias ls='ls --color=auto'
