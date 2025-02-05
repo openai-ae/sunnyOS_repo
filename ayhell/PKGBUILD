@@ -1,7 +1,7 @@
 # Maintainer:
 
 pkgname=ayhell
-pkgver=2.0.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc='A very good AUR helper written entirely in bash that just works.'
 url='https://t.me/LinuxL4nd/6'

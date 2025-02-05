@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# Ayhell 2.0 stable, you have the permission to use this code freely, however you like.
+# Ayhell 2.2.1 stable, you have the permission to use this code freely, however you like.
 # Made by Floppa3959
-# Changelog: Added ability to install multiple packages at a time, added -si and --skip-integrity for skiping integrity checks, a ton of massive improvements.
-# The massive update
+# Changelog: Fixed a bug.
 
 # Check if ayhell is running on archlinux by checking the existence of pacman
 if [ ! -f "/usr/bin/pacman" ]; then
@@ -17,14 +16,12 @@ if [ "$(whoami)" = "root" ]; then
     exit 1
 fi
 
-# Delete useless annoying file
-if [[ -f "$HOME/.ayhell" ]]; then
-    rm -f "$HOME/.ayhell"
-fi
+# Delete useless annoying thing
+rm -rf "$HOME/.ayhell" > /dev/null 2>&1
 
 # install git if it isnt already installed
 if [ ! -f "/usr/bin/git" ]; then
-    echo "git doesn't exist, attempting to install..."
+    echo "Git doesn't exist, installing..."
     if [ ! -f "/usr/bin/sudo" ]; then
         su -c "pacman -S --needed git || { echo \"Failed to install git, Exiting.\"; exit 1; }"
     else
@@ -35,6 +32,12 @@ fi
 # make a directory for downloading from the AUR if it doesnt exist
 mkdir -p "$HOME/.ayhell"
 
+# Skip integrity thing
+if [[ "$1" = "-si" || "$1" = "--skip-integrity" ]]; then
+    si="--skipinteg"
+    shift
+fi
+
 # Argument thingy
 if [ "$1" = "" ]; then
     echo "Usage: $0 --help"
@@ -42,7 +45,7 @@ if [ "$1" = "" ]; then
 elif [[ "$1" = "-h" || "$1" = "--help" ]]; then
     echo "-h or --help for this output"
     echo "-v or --version for version"
-    echo "-s or --search to search somethng in the AUR"
+    echo "-s or --search to search something in the AUR"
     echo "-u or --update:"
     echo "ayhell -u or ayhell --update only updates databases but if: ayhell -u packagename or ayhell --update packagename it will install package after updating databases."
     echo "-ua or --update-all:"
@@ -52,9 +55,8 @@ elif [[ "$1" = "-h" || "$1" = "--help" ]]; then
     echo "If you include -si or --skip-integrity before package name(s) makepkg will skip integrity checks."
     exit 0
 elif [[ "$1" = "--version" || "$1" = "-v" ]]; then
-    echo "Ayhell 2.0 stable"
-    echo "Get the latest version from:"
-    echo "Telegram: t.me/LinuxL4nd/6"
+    echo "Ayhell 2.2.1 stable"
+    echo "Get the latest version from t.me/LinuxL4nd/6"
     exit 0
 elif [[ "$1" = "-s" || "$1" = "--search" ]]; then
     ping -c 1 8.8.8.8 > /dev/null 2>&1
@@ -155,10 +157,6 @@ elif [[ "$1" = "-ua" || "$1" = "--update-all" ]]; then
         fi
     fi
 else
-    if [[ "$1" = "-si" || "$1" = "--skip-integrity" ]]; then
-        shift
-        si=--skipinteg
-    fi
     ayhell=$@
 fi
 
@@ -167,6 +165,13 @@ ping -c 1 8.8.8.8 > /dev/null 2>&1
 if [ ! $? -eq 0 ]; then
     echo "No internet connection."
     exit 1
+fi
+
+# Skip integrity thing 2
+if [[ "$1" = "-si" || "$1" = "--skip-integrity" ]]; then
+    ayhell=$(echo "$ayhell" | sed 's/-si//g' | sed 's/--skip-integrity//g' )
+    si="--skipinteg"
+    shift
 fi
 
 # Cheking if package(s) exist
@@ -194,7 +199,7 @@ for ayhell in "$@"; do
     if [[ -f "$HOME/.ayhell/$ayhell" || -d "$HOME/.ayhell/$ayhell" ]]; then
         rm -rf "$HOME/.ayhell/$ayhell"
     fi
-    echo -n "Downloading sources for $ayhell... "
+    echo -n "Getting pkgbuilds for $ayhell... "
     cd $HOME/.ayhell || exit
     if ! git clone "https://aur.archlinux.org/$ayhell.git" > /dev/null 2>&1; then
         echo "Failed!"
