@@ -1,14 +1,15 @@
-pkgname=os-installer-config
-pkgver=0.4.3
+pkgname=os-installer-config-git
+_pkgname=os-installer-config
+pkgver='0.4.4'
 pkgrel=1
 pkgdesc='SunnyOS configuration files for the os-installer'
 url='https://github.com/openai-ae/os-installer-config'
 arch=('x86_64')
 license=('MIT')
-source=("git+https://github.com/openai-ae/$pkgname.git#branch=0.4.3")
+source=("git+https://github.com/openai-ae/$_pkgname.git")
 sha256sums=('SKIP')
 
 package() {
 	install -d "$pkgdir/etc/os-installer"
-	cp -r $srcdir/$pkgname/* "$pkgdir/etc/os-installer"
+	cp -r $srcdir/$_pkgname/* "$pkgdir/etc/os-installer"
 }
