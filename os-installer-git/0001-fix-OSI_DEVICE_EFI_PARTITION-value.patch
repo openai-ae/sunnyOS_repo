@@ -1,0 +1,26 @@
+From 326bf9ed98a0a3941cb388a2cd74abe8a3884ecd Mon Sep 17 00:00:00 2001
+From: nisel <nisel11good@gmail.com>
+Date: Fri, 7 Feb 2025 21:00:54 +0200
+Subject: [PATCH] fix OSI_DEVICE_EFI_PARTITION value
+
+partition label is useless for scripts better have partition path
+---
+ src/util/device_info.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/util/device_info.py b/src/util/device_info.py
+index 4340349..9c1ae3f 100644
+--- a/src/util/device_info.py
++++ b/src/util/device_info.py
+@@ -49,7 +49,7 @@ class Disk(DeviceInfo):
+ 
+         if partitions:
+             efis = [partition for partition in partitions if partition.is_efi]
+-            self.efi_partition = efis[0].name if len(efis) > 0 else ''
++            self.efi_partition = efis[0].device_path if len(efis) > 0 else ''
+             for partition in partitions:
+                 partition.efi_partition = self.efi_partition
+             self.partitions = partitions
+-- 
+2.48.1
+

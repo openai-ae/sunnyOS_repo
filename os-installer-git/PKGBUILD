@@ -7,8 +7,8 @@ pkgrel=1
 pkgdesc='Operating system installer by the GNOME project'
 url='https://gitlab.gnome.org/p3732/os-installer'
 conflicts=(os-installer)
-source=("git+https://gitlab.gnome.org/p3732/$_pkgname.git")
-sha256sums=('SKIP')
+source=("git+https://gitlab.gnome.org/p3732/$_pkgname.git" "0001-fix-OSI_DEVICE_EFI_PARTITION-value.patch")
+sha256sums=('SKIP' '72b791bca30f1df10e54d1375921ff7e400f681b7a90482f0158aad532d374ae')
 arch=('x86_64')
 license=('GPL3')
 makedepends=('meson' 'appstream-glib' 'blueprint-compiler')
@@ -17,6 +17,11 @@ depends=('gnome-desktop-4' 'gtk4' 'libadwaita' 'libgweather-4' 'python-yaml' 'ud
 pkgver() {
 	cd $srcdir/$_pkgname
 	git tag --sort=-v:refname | head -n1 | awk -F. '{printf "%d.%d.%d\n", $1, $2, $3+1}'
+}
+
+prepare () {
+	cd $srcdir/$_pkgname
+	patch -p1 < $srcdir/0001-fix-OSI_DEVICE_EFI_PARTITION-value.patch
 }
 
 build () {
