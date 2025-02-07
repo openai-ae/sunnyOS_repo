@@ -6,6 +6,7 @@ pkgver=0.4.4
 pkgrel=1
 pkgdesc='Operating system installer by the GNOME project'
 url='https://gitlab.gnome.org/p3732/os-installer'
+conflicts=(os-installer)
 source=("git+https://gitlab.gnome.org/p3732/$_pkgname.git" "fix_en_locale_compiling.patch")
 sha256sums=('SKIP' '31b73f339024fa9b9b7ab2cdfafa1c974289d3923a7d7abdb45e61e4736c9adf')
 arch=('x86_64')

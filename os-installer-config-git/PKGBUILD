@@ -6,6 +6,7 @@ pkgdesc='SunnyOS configuration files for the os-installer'
 url='https://github.com/openai-ae/os-installer-config'
 arch=('x86_64')
 license=('MIT')
+conflicts=('os-installer-config')
 source=("git+https://github.com/openai-ae/$_pkgname.git")
 sha256sums=('SKIP')
 
