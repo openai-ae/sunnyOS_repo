@@ -1,0 +1,34 @@
+# PKGBUILD made by: Dennis ten Hoove <contact@arkanelinux.org>
+
+pkgname=os-installer-git
+_pkgname=os-installer
+pkgver=0.4.4
+pkgrel=1
+pkgdesc='Operating system installer by the GNOME project'
+url='https://gitlab.gnome.org/p3732/os-installer'
+source=("git+https://gitlab.gnome.org/p3732/$_pkgname.git" "fix_en_locale_compiling.patch")
+sha256sums=('SKIP' '31b73f339024fa9b9b7ab2cdfafa1c974289d3923a7d7abdb45e61e4736c9adf')
+arch=('x86_64')
+license=('GPL3')
+makedepends=('meson' 'appstream-glib' 'blueprint-compiler')
+depends=('gnome-desktop-4' 'gtk4' 'libadwaita' 'libgweather-4' 'python-yaml' 'udisks2' 'vte4' 'python-gobject')
+
+pkgver() {
+	cd $srcdir/$_pkgname
+	git tag --sort=-v:refname | head -n1 | awk -F. '{printf "%d.%d.%d\n", $1, $2, $3+1}'
+}
+
+prepare () {
+	cd $srcdir/$_pkgname
+	patch -p1 < $srcdir/fix_en_locale_compiling.patch
+}
+
+build () {
+	cd $srcdir/$_pkgname
+	meson setup --prefix=/usr build
+}
+
+package() {
+	cd $srcdir/$_pkgname
+	meson install -C build --destdir $pkgdir
+}
